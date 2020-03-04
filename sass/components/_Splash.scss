@@ -1,7 +1,7 @@
 @import './_vars';
 
 body {
-    background: url('../images/background.png');
+    background: #333333 url('../images/background.png') !important;
     background-repeat: no-repeat;
 }
 
@@ -11,6 +11,21 @@ body {
 
 .hero-heading {
     font-family: $spartan;
+    color: white;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 900;
+    margin-top: 50px;
+}
+
+.flash {
+    color: white;
+    font-family: $spartan;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-top: 30px;
+    margin-bottom: 40px;
 }
 
 .signin {
@@ -23,7 +38,57 @@ body {
     text-transform: uppercase;
 }
 
+.hero-call {
+    color: $roku-purple;
+    background: white;
+    border-radius: 10px;
+    padding: 12px;
+    text-transform: uppercase;
+    text-align: center;
+    width: 150px;
+    display: block;
+}
+
+.card-img {
+    max-width: 80px;
+}
+
+.card {
+    margin-top: 35px;
+    width: 25rem;
+}
+
+.card-title {
+    margin-top: 25px;
+    color: $roku-purple;
+    font-family: $spartan;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+
 .container-fluid {
     padding: 0 !important;
 }
+
+footer {
+    color: white;
+    text-align: center;
+    font-family: $montserrat;
+    margin-top: 25px;
+    font-size: 0.8rem;
+}
+
+.btn-primary {
+    background: $roku-purple !important;
+}
+
+// Media Queries
+
+@media (min-width: 576px) {
+
+}
+
+
 
