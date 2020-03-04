@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="70px" height="56px" viewBox="0 0 70 56" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 63.1 (92452) - https://sketch.com -->
+    <title>Shape</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Splash" transform="translate(-1009.000000, -690.000000)" fill="#662D91" fill-rule="nonzero">
+            <g id="cards" transform="translate(246.000000, 652.000000)">
+                <g id="television-card" transform="translate(648.000000, 0.000000)">
+                    <path d="M179.75,38 L120.25,38 C117.351562,38 115,40.3515625 115,43.25 L115,78.25 C115,81.1484375 117.351562,83.5 120.25,83.5 L147.057813,83.5 L147.057813,87 L129.557813,87 C127.621875,87 126.057812,88.5640625 126.057812,90.5 C126.057812,92.4359375 127.621875,94 129.557813,94 L171.557813,94 C173.49375,94 175.057813,92.4359375 175.057813,90.5 C175.057813,88.5640625 173.49375,87 171.557813,87 L154.057813,87 L154.057813,83.5 L179.75,83.5 C182.648438,83.5 185,81.1484375 185,78.25 L185,43.25 C185,40.3515625 182.648438,38 179.75,38 Z M178,76.5 L122,76.5 L122,45 L178,45 L178,76.5 Z" id="Shape"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
