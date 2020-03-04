@@ -1,0 +1,29 @@
+@import './_vars';
+
+body {
+    background: url('../images/background.png');
+    background-repeat: no-repeat;
+}
+
+.navbar {
+    background: $roku-purple;
+}
+
+.hero-heading {
+    font-family: $spartan;
+}
+
+.signin {
+    background: white;
+    color: $roku-purple;
+    padding: 10px;
+    border-radius: 8px;
+    width: 100px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.container-fluid {
+    padding: 0 !important;
+}
+

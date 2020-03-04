@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAEA,IAAK,CACD,UAAU,CAAE,+BAA+B,CAC3C,iBAAiB,CAAE,SAAS,CAGhC,OAAQ,CACJ,UAAU,CCPA,OAAO,CDUrB,aAAc,CACV,WAAW,CCLL,oBAAqB,CDQ/B,OAAQ,CACJ,UAAU,CAAE,KAAK,CACjB,KAAK,CChBK,OAAO,CDiBjB,OAAO,CAAE,IAAI,CACb,aAAa,CAAE,GAAG,CAClB,KAAK,CAAE,KAAK,CACZ,UAAU,CAAE,MAAM,CAClB,cAAc,CAAE,SAAS,CAG7B,gBAAiB,CACb,OAAO,CAAE,YAAY",
+"sources": ["../sass/components/_Splash.scss","../sass/_vars.scss"],
+"names": [],
+"file": "main.css"
+}
