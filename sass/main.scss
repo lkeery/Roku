@@ -1,6 +1,18 @@
 @import '_vars';
 @import './components/Splash';
+@import './components/Login';
+@import './components/Users';
+@import './components/User';
 
 .row {
     margin: 0 !important;
+}
+
+.user-nav {
+    cursor: pointer;
+    
+    .nav-item {
+        color: white;
+        font-family: $montserrat;
+    }
 }

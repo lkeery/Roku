@@ -1,11 +1,8 @@
 export default {
-    template: `
-    
-    `,
+    name: "DashboardComponent",
+    props: ['currentuser'],
 
-    data() {
-        return {
-            
-        }
-    }
+    template: `
+        
+    `,
 }
