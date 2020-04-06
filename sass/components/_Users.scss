@@ -1,0 +1,15 @@
+@import '_vars';
+
+#users {
+    background: $roku-purple;
+    height: 100vh;
+}
+
+.users-heading {
+    font-family: $spartan;
+    color: white;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 900;
+    margin-top: 80px;
+}

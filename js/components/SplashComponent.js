@@ -1,23 +1,12 @@
 export default {
+    name: "SplashComponent",
     template: `
     <section id="splash">
-    <header>
-            <nav class="navbar">
-                <a routerLink="/" class="navbar-brand" href="#">
-                    <img src="./images/flashback-logo-white.svg" alt="Logo">
-                </a>
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a href="/login" class="nav-link signin">Sign In</a>
-                    </li>
-                </ul>
-            </nav>
-    </header>
     <div class="row justify-content-md-center">
     <div class="col col-lg-6">
             <h1 class="hero-heading">All of your favourite old school content</h1>
             <h2 class="flash">In a Flash</h2>
-            <a href="#" class="hero-call mx-auto" role="button" aria-disabled="true">Browse</a>
+            <router-link :to="{ name: 'login' }" class="hero-call mx-auto" role="button" aria-disabled="true">Login</router-link>
     </div>
     </div>
 
@@ -26,10 +15,12 @@ export default {
  
     <div class="col col-lg-4 col-sm-4 card text-center">
       <div class="card-body">
-        <img src="./images/movie-icon.svg" alt="Movies" class="card-img">
+        <img src="./images/movie-icon.svg" alt="Movies" class="card-img" style="margin-top: 16px;">
         <h5 class="card-title">Movies</h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="btn btn-primary">See Movies</a>
+        <p class="card-text">
+        <router-link :to="{ name: 'login' }" class="btn btn-primary">See Movies</router-link>
+        </p>
+        
       </div>
     </div>
  
@@ -38,18 +29,21 @@ export default {
       <div class="card-body">
         <img src="./images/music-icon.svg" alt="Music" class="card-img">
         <h5 class="card-title">Music</h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="btn btn-primary">See Music</a>
+        <p class="card-text">
+        <router-link :to="{ name: 'login' }" class="btn btn-primary">See Music</router-link>
+        </p>
+        
       </div>
     </div>
 
- 
     <div class="col col-lg-4 col-sm-4 card text-center">
       <div class="card-body">
-        <img src="./images/tv-icon.svg" alt="TV" class="card-img">
+        <img src="./images/tv-icon.svg" alt="TV" class="card-img" style="margin-top: 16px;">
         <h5 class="card-title">Television</h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="btn btn-primary">See Shows</a>
+        <p class="card-text">
+        <router-link :to="{ name: 'login' }" class="btn btn-primary">See Shows</router-link>
+        </p>
+        
       </div>
     </div>
 

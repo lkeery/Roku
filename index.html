@@ -32,11 +32,25 @@
     <main id="app">
 
       <div class="container-fluid">
-        <!-- <ul>
-              <li v-if="authenticated"><i class="fas fa-user-circle"></i></li>
-              <li v-if="administrator"><i class="fas fa-cog"></i></li>
-              <li v-if="authenticated" v-on:click="logout()"><i class="fas fa-power-off"></i></li>
-            </ul> -->
+        <header>
+          <nav class="navbar">
+              <router-link :to="{ name: 'splash' }" class="navbar-brand">
+                  <img src="./images/flashback-logo-white.svg" alt="Logo">
+              </router-link>
+              <ul class="nav user-nav">
+                  <li class="nav-item" v-if="authenticated">
+                    <a class="nav-link"><i class="fas fa-user-circle"></i>&nbsp;&nbsp;Account</a>
+                  </li>
+                  <li class="nav-item" v-if="administrator">
+                    <a class="nav-link"><i class="fas fa-cog"></i>&nbsp;&nbsp;Settings</a>
+                  </li>
+                  <li class="nav-item" v-if="authenticated" v-on:click="logout()">
+                    <a class="nav-link"><i class="fas fa-power-off"></i>&nbsp;&nbsp;Logout</a>
+                  </li>
+              </ul>
+          </nav>
+        </header>
+
         <!-- first thing in component templates should be a container -->
         <router-view @authenticated="setAuthenticated" />
         </div>

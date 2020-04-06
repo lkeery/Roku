@@ -1,0 +1,15 @@
+@import '_vars';
+
+.user-card {
+    background: transparent !important;
+    cursor: pointer;
+}
+
+.username {
+    color: white;
+    text-align: center;
+    margin-top: 16px;
+    font-family: $spartan;
+    font-weight: 700;
+    text-transform: uppercase;
+}
