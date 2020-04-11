@@ -2,6 +2,8 @@ import LoginComponent from "./components/LoginComponent.js";
 import UsersComponent from "./components/UsersComponent.js";
 import SplashComponent from "./components/SplashComponent.js";
 import DashboardComponent from "./components/DashboardComponent.js";
+import MusicComponent from "./components/MusicComponent.js";
+import TelevisionComponent from "./components/TelevisionComponent.js";
 
 (() => {
   let router = new VueRouter({
@@ -12,6 +14,8 @@ import DashboardComponent from "./components/DashboardComponent.js";
       { path: '/login', name: "login", component: LoginComponent },
       { path: '/users', name: "users", component: UsersComponent },
       { path: '/dashboard', name: "dashboard", component: DashboardComponent },
+      { path: '/television', name: "television", component: TelevisionComponent },
+      { path: '/music', name: "music", component: MusicComponent },
     ]
   });
 
@@ -39,14 +43,14 @@ import DashboardComponent from "./components/DashboardComponent.js";
       setAuthenticated(status, data) {
         debugger;
         this.authenticated = status;
-        //this.administrator = parseInt(data.isadmin);
+        this.administrator = parseInt(data.isadmin);
         this.user = data;
       },
 
       logout() {
         this.$router.push({ path: "/login" });
         this.authenticated = false;
-        //this.administrator = false;
+        this.administrator = false;
 
         if(localStorage.getItem("cachedUser")) {
           localStorage.removeItem("cachedUser");
