@@ -61,6 +61,14 @@ import TelevisionComponent from "./components/TelevisionComponent.js";
         if (localStorage.getItem("cachedVideo")) {
           localStorage.removeItem("cachedVideo");
         }
+
+        if (localStorage.getItem("cachedEpisode")) {
+          localStorage.removeItem("cachedEpisode");
+        }
+
+        if (localStorage.getItem("cachedAudio")) {
+          localStorage.removeItem("cachedAudio");
+        }
       }
     },
 

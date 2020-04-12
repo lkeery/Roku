@@ -135,7 +135,7 @@ export default {
   
               this.currentMediaDetails = this.allRetrievedVideos[0];
             } else {
-              debugger;
+              //debugger;
               let url = `./admin/index.php?media=television&permissions=1`;
   
               fetch(url)
