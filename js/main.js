@@ -24,6 +24,7 @@ import TelevisionComponent from "./components/TelevisionComponent.js";
     data: {
       authenticated: false,
       administrator: false,
+      permissions: false,
       user: []
     },
 
@@ -41,9 +42,10 @@ import TelevisionComponent from "./components/TelevisionComponent.js";
 
     methods: {
       setAuthenticated(status, data) {
-        debugger;
+        //debugger;
         this.authenticated = status;
-        this.administrator = parseInt(data.isadmin);
+        this.administrator = parseInt(data.admin);
+        this.permissions = parseInt(data.permissions);
         this.user = data;
       },
 
