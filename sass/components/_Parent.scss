@@ -54,6 +54,35 @@
   margin-top: 100px;
 }
 
+
+.filter-section {
+  margin-left: 16px;
+
+  h4 {
+    color: white;
+    font-family: $spartan;
+  }
+
+  ul {
+    list-style-type: none;
+
+    li {
+      padding-top: 4px;
+      padding-bottom: 4px;
+      font-family: $montserrat;
+    }
+  }
+
+  a {
+    color: white;
+  }
+
+  a:hover {
+    color: white;
+    text-decoration: underline;
+  }
+}
+
 #search {
   padding-top: 16px;
   padding-bottom: 8px;
@@ -62,6 +91,10 @@
 .copyright {
     color: white;
     margin-left: 24px;
+}
+
+#heading {
+  font-family: $spartan;
 }
 
 /*
@@ -100,6 +133,7 @@
     font-weight: 500;
     color: #ffffff;
     padding: 16px;
+    font-family: $montserrat;
   }
   
   .sidebar .nav-link.active {

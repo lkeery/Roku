@@ -1,5 +1,6 @@
 export default {
     name: "MusicComponent",
+    props: ['currentuser'],
 
     template: `
     <div class="row" id="dashboard-parent">
@@ -21,19 +22,7 @@ export default {
     </nav>
 
     <div class="ml-sm-auto col-lg-10 px-4">
-    <div class="col-lg-12">
-    <form id="search">
-    <div class="input-group">
-      <div class="input-group-prepend">
-        <div class="input-group-text" id="btnGroupAddon"><i class="fas fa-search"></i></div>
-      </div>
-      <input type="text" class="form-control" placeholder="Search Movies, TV, Music..." aria-label="Search" aria-describedby="btnGroupAddon">
-      <div class="input-group-append">
-        <button class="btn btn-secondary" type="button" id="button-addon2">Search</button>
-      </div>
-    </div>
-</form>
-    </div>
+    
     <div class="row">      
     <div class="col-md-4 media-container text-center">
     <img :src="'images/covers/' + currentMediaDetails.music_cover" alt="Current Media" class="album-cover" width="200" height="200">
@@ -57,40 +46,83 @@ export default {
         </div>
     </div>
     `,
-
     data: function () {
       return {
-          currentMediaDetails: {},
-          allRetrievedVideos: []
+        currentMediaDetails: {},
+        allRetrievedVideos: [],
+        userCached: [],
+        userPermissions: {},
       }
-  },
-
-  created: function () {
+    },
+  
+    mounted() {
+      if(this.userPermissions == 1){
+        document.getElementById('dashboard-parent').id = 'kids';
+      } else {
+        document.getElementById('dashboard-parent').id = 'dashboard-parent';
+      }
+    },
+  
+    created: function () {
       this.retrieveVideoContent();
-  },
-
-  methods: {
+    },
+  
+    methods: {
       retrieveVideoContent() {
-          if (localStorage.getItem("cachedAudio")) {
-            this.allRetrievedVideos = JSON.parse(localStorage.getItem("cachedAudio"));
-
-            this.currentMediaDetails = this.allRetrievedVideos[0];
-          } else {
-              let url = `./admin/index.php?media=music`;
-
+        
+        if (localStorage.getItem("cachedUser")) {
+  
+          this.userCached = JSON.parse(localStorage.getItem("cachedUser"));
+  
+          this.userPermissions = this.userCached.permissions;
+  
+          if (this.userPermissions == 0) {
+  
+            if (localStorage.getItem("cachedAudio")) {
+              this.allRetrievedVideos = JSON.parse(localStorage.getItem("cachedAudio"));
+  
+              this.currentMediaDetails = this.allRetrievedVideos[0];
+            } else {
+              //debugger;
+              let url = `./admin/index.php?media=music&permissions=0`;
+  
               fetch(url)
-                  .then(res => res.json())
-                  .then(data => {
-                      localStorage.setItem("cachedAudio", JSON.stringify(data));
-
-                      this.allRetrievedVideos = data;
-                      this.currentMediaDetails = data[0];
-                  })
+                .then(res => res.json())
+                .then(data => {
+                  localStorage.setItem("cachedAudio", JSON.stringify(data));
+  
+                  this.allRetrievedVideos = data;
+                  this.currentMediaDetails = data[0];
+                })
+            }
+          } else {
+  
+            if (localStorage.getItem("cachedAudio")) {
+              this.allRetrievedVideos = JSON.parse(localStorage.getItem("cachedAudio"));
+  
+              this.currentMediaDetails = this.allRetrievedVideos[0];
+            } else {
+              //debugger;
+              let url = `./admin/index.php?media=music&permissions=1`;
+  
+              fetch(url)
+                .then(res => res.json())
+                .then(data => {
+                  localStorage.setItem("cachedAudio", JSON.stringify(data));
+  
+                  this.allRetrievedVideos = data;
+                  this.currentMediaDetails = data[0];
+                })
+            }
           }
+  
+        }
+  
+  
       },
-
+  
       loadNewMovie(movie) {
-          this.currentMediaDetails = movie;
+        this.currentMediaDetails = movie;
       }
-  }
+    }
 }

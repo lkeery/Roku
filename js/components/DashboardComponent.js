@@ -1,8 +1,8 @@
 export default {
-    name: "DashboardComponent",
+  name: "DashboardComponent",
 
-    template: `
-    <div class="row" id="dashboard-parent">
+  template: `
+    <div class="row" id="dashboard-parent" ref="dash">
     <nav class="col-md-2 d-md-block sidebar">
       <div class="sidebar-sticky">
         <ul class="nav flex-column">
@@ -13,16 +13,14 @@ export default {
             <router-link :to="{ name: 'television' }" class="nav-link"><i class="fas fa-tv"></i>&nbsp;&nbsp;Television</router-link>
           </li>
           <li class="nav-item">
-             <router-link :to="{ name: 'music' }" class="nav-link"><i class="fas fa-music"></i>&nbsp;&nbsp;Music</router-link>
+             <router-link :to="{ name: 'music'  }" class="nav-link"><i class="fas fa-music"></i>&nbsp;&nbsp;Music</router-link>
           </li>
         </ul>
         <hr>
+        <div class="filter-section">
         <h4>Filter</h4>
         <nav class="nav flex-column">
-        <ul>
-          <li>
-            <a href="action" @click.prevent="filterMedia('action')">Action</a>
-          </li>
+        <ul class="list-group">
           <li>
             <a href="comedy" @click.prevent="filterMedia('comedy')">Comedy</a>
           </li>
@@ -38,8 +36,13 @@ export default {
           <li>
             <a href="sci-fi" @click.prevent="filterMedia('sci-fi')">Sci-Fi</a>
           </li>
+          <li>
+          <a href="all" @click.prevent="retrieveVideoContent">All</a>
+          </li>
         </ul>
         </nav>
+        </div>
+        <hr>
 
         <p class="fixed-bottom copyright">Copyright &copy; 2020 Roku</p>
       </div>
@@ -48,19 +51,7 @@ export default {
     
 
     <div class="ml-sm-auto col-lg-10 px-4">
-    <div class="col-lg-12">
-    <form id="search">
-    <div class="input-group">
-      <div class="input-group-prepend">
-        <div class="input-group-text" id="btnGroupAddon"><i class="fas fa-search"></i></div>
-      </div>
-      <input type="text" class="form-control" placeholder="Search Movies, TV, Music..." aria-label="Search" aria-describedby="btnGroupAddon">
-      <div class="input-group-append">
-        <button class="btn btn-secondary" type="button" id="button-addon2">Search</button>
-      </div>
-    </div>
-</form>
-    </div>
+    
     <div class="row">      
     <div class="col-md-4 media-container">
                 <h4 class="media-title">{{currentMediaDetails.movies_title}}</h4>
@@ -79,7 +70,7 @@ export default {
             </div>
         </div>
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-4 pb-2 mb-3 border-bottom">
-        <h1>Movies</h1>
+        <h1 class="heading">Movies</h1>
         </div>
         <div class="thumb-wrapper col-lg-12">
         <img v-for="item in allRetrievedVideos" :src="'images/covers/' + item.movies_cover" alt="Media Thumb" @click="loadNewMovie(item)" class="movie-thumbnail hvr-float">
@@ -89,50 +80,112 @@ export default {
 
     `,
 
-    data: function () {
-      return {
-          currentMediaDetails: {},
-          allRetrievedVideos: []
-      }
+  data: function () {
+    return {
+      currentMediaDetails: {},
+      allRetrievedVideos: [],
+      userCached: [],
+      userPermissions: {},
+    }
+  },
+
+  mounted() {
+    if(this.userPermissions == 1){
+      document.getElementById('dashboard-parent').id = 'kids';
+    } else {
+      document.getElementById('dashboard-parent').id = 'dashboard-parent';
+    }
   },
 
   created: function () {
-      this.retrieveVideoContent();
+    this.retrieveVideoContent();
   },
 
   methods: {
     filterMedia(filter) {
-      let url = `./admin/index.php?media=movies&filter=${filter}`;
+      //debugger;
+      if (localStorage.getItem("cachedUser")) {
+        this.userCached = JSON.parse(localStorage.getItem("cachedUser"));
 
-      fetch(url)
-        .then(res => res.json())
-        .then(data => {
-          this.allRetrievedVideos = data;
-          this.currentMediaDetails = data[0];
-        })
-    },  
-    
-    retrieveVideoContent() {
-      if (localStorage.getItem("cachedVideo")) {
-        this.allRetrievedVideos = JSON.parse(localStorage.getItem("cachedVideo"));
+        this.userPermissions = this.userCached.permissions;
 
-        this.currentMediaDetails = this.allRetrievedVideos[0];
-    } else {
-        let url = `./admin/index.php?media=movies`;
+        if (this.userPermissions == 0) {
+          let url = `./admin/index.php?media=movies&permissions=0&filter=${filter}`;
 
-        fetch(url)
+          fetch(url)
             .then(res => res.json())
             .then(data => {
+              this.allRetrievedVideos = data;
+              this.currentMediaDetails = data[0];
+            })
+        } else {
+          let url = `./admin/index.php?media=movies&permissions=1&filter=${filter}`;
+
+          fetch(url)
+            .then(res => res.json())
+            .then(data => {
+              this.allRetrievedVideos = data;
+              this.currentMediaDetails = data[0];
+            })
+        }
+      }
+    },
+
+    retrieveVideoContent() {
+      
+      if (localStorage.getItem("cachedUser")) {
+
+        this.userCached = JSON.parse(localStorage.getItem("cachedUser"));
+
+        this.userPermissions = this.userCached.permissions;
+
+        if (this.userPermissions == 0) {
+
+          if (localStorage.getItem("cachedVideo")) {
+            this.allRetrievedVideos = JSON.parse(localStorage.getItem("cachedVideo"));
+
+            this.currentMediaDetails = this.allRetrievedVideos[0];
+          } else {
+
+            let url = `./admin/index.php?media=movies&permissions=0`;
+
+            fetch(url)
+              .then(res => res.json())
+              .then(data => {
                 localStorage.setItem("cachedVideo", JSON.stringify(data));
 
                 this.allRetrievedVideos = data;
                 this.currentMediaDetails = data[0];
-            })
-    }
-      },
+              })
+          }
+        } else {
 
-      loadNewMovie(movie) {
-          this.currentMediaDetails = movie;
+          if (localStorage.getItem("cachedVideo")) {
+            this.allRetrievedVideos = JSON.parse(localStorage.getItem("cachedVideo"));
+
+            this.currentMediaDetails = this.allRetrievedVideos[0];
+          } else {
+
+            let url = `./admin/index.php?media=movies&permissions=1`;
+
+            fetch(url)
+              .then(res => res.json())
+              .then(data => {
+                localStorage.setItem("cachedVideo", JSON.stringify(data));
+
+                this.allRetrievedVideos = data;
+                this.currentMediaDetails = data[0];
+              })
+          }
+        }
+
       }
+
+
+    },
+
+    loadNewMovie(movie) {
+      this.currentMediaDetails = movie;
+    }
   }
 }

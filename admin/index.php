@@ -20,11 +20,18 @@ if (isset($_GET['filter'])) {
 
     $results = getMoviesByFilter($args);
     echo json_encode($results->fetchAll(PDO::FETCH_ASSOC));
+
 } else {
-    $results = getAll($tbl);
 
-    echo json_encode($results);
+    $permissions = $_GET['permissions'];
+    
+    if ($permissions == 0) {
+        $results = getAll($tbl);
+        echo json_encode($results);
+    }
+
+    if ($permissions == 1) {
+        $results = getAllCensored($tbl, $permissions);
+        echo json_encode($results);
+    }
 }
-
-?>
- 

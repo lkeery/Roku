@@ -1,5 +1,6 @@
 export default {
     name: "TelevisionComponent",
+    props: ['currentuser'],
 
     template: `
     <div class="row" id="dashboard-parent">
@@ -23,19 +24,7 @@ export default {
     
 
     <div class="ml-sm-auto col-lg-10 px-4">
-    <div class="col-lg-12">
-    <form id="search">
-    <div class="input-group">
-      <div class="input-group-prepend">
-        <div class="input-group-text" id="btnGroupAddon"><i class="fas fa-search"></i></div>
-      </div>
-      <input type="text" class="form-control" placeholder="Search Movies, TV, Music..." aria-label="Search" aria-describedby="btnGroupAddon">
-      <div class="input-group-append">
-        <button class="btn btn-secondary" type="button" id="button-addon2">Search</button>
-      </div>
-    </div>
-</form>
-    </div>
+    
     <div class="row">      
     <div class="col-md-4 media-container">
                 <h4 class="media-title">{{currentMediaDetails.television_title}}</h4>
@@ -63,37 +52,110 @@ export default {
 
     data: function () {
       return {
-          currentMediaDetails: {},
-          allRetrievedVideos: []
+        currentMediaDetails: {},
+        allRetrievedVideos: [],
+        userCached: [],
+        userPermissions: {},
       }
-  },
-
-  created: function () {
+    },
+  
+    mounted() {
+      if(this.userPermissions == 1){
+        document.getElementById('dashboard-parent').id = 'kids';
+      } else {
+        document.getElementById('dashboard-parent').id = 'dashboard-parent';
+      }
+    },
+  
+    created: function () {
       this.retrieveVideoContent();
-  },
-
-  methods: {
-      retrieveVideoContent() {
-        if (localStorage.getItem("cachedEpisode")) {
-          this.allRetrievedVideos = JSON.parse(localStorage.getItem("cachedEpisode"));
-
-          this.currentMediaDetails = this.allRetrievedVideos[0];
-        } else {
-              let url = `./admin/index.php?media=television`;
-
-              fetch(url)
-                  .then(res => res.json())
-                  .then(data => {
-                      localStorage.setItem("cachedEpisode", JSON.stringify(data));
-
-                      this.allRetrievedVideos = data;
-                      this.currentMediaDetails = data[0];
-                  })
-                }
+    },
+  
+    methods: {
+      filterMedia(filter) {
+        //debugger;
+        if (localStorage.getItem("cachedUser")) {
+          this.userCached = JSON.parse(localStorage.getItem("cachedUser"));
+  
+          this.userPermissions = this.userCached.permissions;
+  
+          if (this.userPermissions == 0) {
+            let url = `./admin/index.php?media=television&permissions=0&filter=${filter}`;
+  
+            fetch(url)
+              .then(res => res.json())
+              .then(data => {
+                this.allRetrievedVideos = data;
+                this.currentMediaDetails = data[0];
+              })
+          } else {
+            let url = `./admin/index.php?media=television&permissions=1&filter=${filter}`;
+  
+            fetch(url)
+              .then(res => res.json())
+              .then(data => {
+                this.allRetrievedVideos = data;
+                this.currentMediaDetails = data[0];
+              })
+          }
+        }
       },
-
+  
+      retrieveVideoContent() {
+        
+        if (localStorage.getItem("cachedUser")) {
+  
+          this.userCached = JSON.parse(localStorage.getItem("cachedUser"));
+  
+          this.userPermissions = this.userCached.permissions;
+  
+          if (this.userPermissions == 0) {
+  
+            if (localStorage.getItem("cachedEpisode")) {
+              this.allRetrievedVideos = JSON.parse(localStorage.getItem("cachedEpisode"));
+  
+              this.currentMediaDetails = this.allRetrievedVideos[0];
+            } else {
+              //debugger;
+              let url = `./admin/index.php?media=television&permissions=0`;
+  
+              fetch(url)
+                .then(res => res.json())
+                .then(data => {
+                  localStorage.setItem("cachedEpisode", JSON.stringify(data));
+  
+                  this.allRetrievedVideos = data;
+                  this.currentMediaDetails = data[0];
+                })
+            }
+          } else {
+  
+            if (localStorage.getItem("cachedEpisode")) {
+              this.allRetrievedVideos = JSON.parse(localStorage.getItem("cachedEpisode"));
+  
+              this.currentMediaDetails = this.allRetrievedVideos[0];
+            } else {
+              debugger;
+              let url = `./admin/index.php?media=television&permissions=1`;
+  
+              fetch(url)
+                .then(res => res.json())
+                .then(data => {
+                  localStorage.setItem("cachedEpisode", JSON.stringify(data));
+  
+                  this.allRetrievedVideos = data;
+                  this.currentMediaDetails = data[0];
+                })
+            }
+          }
+  
+        }
+  
+  
+      },
+  
       loadNewMovie(movie) {
-          this.currentMediaDetails = movie;
+        this.currentMediaDetails = movie;
       }
-  }
+    }
 }
